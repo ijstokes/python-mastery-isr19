@@ -1,0 +1,7 @@
+for f in [0-9]-*.ipynb; do
+    ipython nbconvert --to latex --post pdf $f
+    ipython nbconvert --to html $f
+done
+
+rm *.tex
+mv *.html *.pdf nbs
