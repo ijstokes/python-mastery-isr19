@@ -25,21 +25,23 @@ def main(pool, tcnt, wcnt):
     print("Winning people:", len(winpeople))
 
 def getargs():
-    if len(sys.argv) != 4:
-        print("usage:", sys.argv[0], "POOL TCNT WCNT", """
 
-    POOL size of pool to select numbers from
-    TCNT number of tickets issued
-    WCNT number of winning numbers selected
-""")
-        sys.exit(1)
-    else:
-        pool = int(sys.argv[1])
-        tcnt = int(sys.argv[2])
-        wcnt = int(sys.argv[3])
-        return pool, tcnt, wcnt # tuple packing 3 arguments extracted from CLI
+    import argparse # from the standard library
+
+    parser = argparse.ArgumentParser(description='Play the lottery')
+
+    parser.add_argument('pool', metavar='POOL', type=int,
+                       help='size of pool to select numbers from')
+    parser.add_argument('tcnt', metavar='TCNT', type=int,
+                       help='number of tickets issued')
+    parser.add_argument('wcnt', metavar='WCNT', type=int,
+                       help='number of winning numbers selected')
+
+    args = parser.parse_args()
+
+    return args
 
 if __name__ == '__main__':
     import sys
-    pool, tcnt, wcnt = getargs() # tuple unpacking
-    main(pool, tcnt, wcnt)
+    args = getargs() # tuple unpacking
+    main(args.pool, args.tcnt, args.wcnt)
